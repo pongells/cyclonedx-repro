@@ -1,0 +1,33 @@
+{
+  "name": "cyclonedx-repro-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/cyclonedx-repro-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/cyclonedx-repro-e2e/cypress.config.ts",
+        "devServerTarget": "cyclonedx-repro:serve:development",
+        "testingType": "e2e"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "cyclonedx-repro:serve:production"
+        },
+        "ci": {
+          "devServerTarget": "cyclonedx-repro:serve-static"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/cyclonedx-repro-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["cyclonedx-repro"]
+}

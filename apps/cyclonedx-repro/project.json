@@ -1,0 +1,78 @@
+{
+  "name": "cyclonedx-repro",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/cyclonedx-repro/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/cyclonedx-repro"
+      },
+      "configurations": {
+        "development": {
+          "mode": "development"
+        },
+        "production": {
+          "mode": "production"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/vite:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "cyclonedx-repro:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "cyclonedx-repro:build:development",
+          "hmr": true
+        },
+        "production": {
+          "buildTarget": "cyclonedx-repro:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "preview": {
+      "executor": "@nx/vite:preview-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "cyclonedx-repro:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "cyclonedx-repro:build:development"
+        },
+        "production": {
+          "buildTarget": "cyclonedx-repro:build:production"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["coverage/apps/cyclonedx-repro"],
+      "options": {
+        "passWithNoTests": true,
+        "reportsDirectory": "../../coverage/apps/cyclonedx-repro"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/cyclonedx-repro/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "cyclonedx-repro:build"
+      }
+    }
+  },
+  "tags": []
+}
